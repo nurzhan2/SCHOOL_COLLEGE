@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Открытый факультет — Первый Школледж</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <div class="nav wrap">
+    <a href="index.html" class="logo"><img src="assets/logo.png" alt="Первый Школледж"></a>
+    <nav class="nav-links">
+      <a href="index.html">Главная</a>
+      <a href="school.html">Школа</a>
+      <a href="college.html" class="active">Колледж</a>
+      <a href="extra.html">Допобразование</a>
+      <a href="dpo.html">ДПО</a>
+      <a href="summer-club.html">Летний клуб</a>
+      <a href="documents.html">Документы</a>
+      <a href="location.html">Как добраться</a>
+    </nav>
+    <a href="#apply" class="nav-cta">Оставить заявку</a>
+    <button class="nav-burger" aria-label="Меню"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg><span>Меню</span></button>
+  </div>
+</header>
+<div class="mobile-menu">
+  <button class="mclose" aria-label="Закрыть">✕</button>
+  <a href="index.html">Главная</a>
+  <a href="school.html">Школа</a>
+  <a href="college.html">Колледж</a>
+  <a href="extra.html">Допобразование</a>
+  <a href="dpo.html">ДПО</a>
+  <a href="summer-club.html">Летний клуб</a>
+  <a href="documents.html">Документы</a>
+  <a href="location.html">Как добраться</a>
+  <a href="#" onclick="alert('Личный кабинет в разработке'); return false;">Личный кабинет</a>
+  <a href="#apply" class="nav-cta">Оставить заявку</a>
+</div>
+
+<section class="page-hero">
+  <div class="wrap">
+    <div class="breadcrumb"><a href="index.html">Главная</a> → <a href="college.html">Колледж</a> → Открытый факультет</div>
+    <div class="page-hero-inner reveal">
+      <div>
+        <span class="eyebrow v-lime">Свободный факультет</span>
+        <h1>Открытый факультет</h1>
+        <p class="lead">Специальное образовательное пространство для студентов, которые хотят получить среднее профессиональное образование, но пока не выбрали конкретную профессию.</p>
+        <div class="btn-row">
+          <a href="#apply" class="btn btn-lime">Хочу попробовать</a>
+          <a href="college.html" class="btn btn-outline-light">Все программы</a>
+        </div>
+      </div>
+      <div style="position:relative; z-index:1; display:flex; flex-direction:column; gap:14px;">
+        <img src="assets/images/open-faculty-hero.jpg" alt="Студенты разных направлений" style="border-radius:var(--radius-md); width:100%; object-fit:cover; aspect-ratio:4/3; margin-bottom:8px;">
+        <div style="background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.2); border-radius:var(--radius-md); padding:24px;">
+          <h3 style="font-size:18px; color:#fff; margin-bottom:8px;">Осознанный выбор</h3>
+          <p style="font-size:14px; color:#A9CBCE; margin:0;">Время на погружение в разные специальности перед финальным выбором</p>
+        </div>
+        <div style="background:var(--lime); border-radius:var(--radius-md); padding:24px; color:var(--lime-text);">
+          <h3 style="font-size:18px; margin-bottom:8px;">Экономия денег</h3>
+          <p style="font-size:14px; margin:0;">Защита от оплаты обучения по специальности, которая разонравится через месяц</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ОСНОВНАЯ ИДЕЯ -->
+<section>
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="eyebrow">Основная идея</span><h2>Почему это важно</h2></div>
+    <div class="of-grid reveal" style="margin-bottom:48px;">
+      <div class="of-card">
+        <h4>Осознанный выбор</h4>
+        <p>Время на погружение в разные специальности. Выбираешь профессию не вслепую, а после реального знакомства.</p>
+      </div>
+      <div class="of-card">
+        <h4>Без потери времени</h4>
+        <p>Студент учится, а не пропускает год. Изучение базовых дисциплин полностью засчитывается при переходе.</p>
+      </div>
+      <div class="of-card">
+        <h4>Общий старт</h4>
+        <p>Изучение базовых дисциплин, актуальных для всех профессий — медицины, права, дизайна и педагогики.</p>
+      </div>
+    </div>
+
+    <!-- КАК РАБОТАЕТ -->
+    <div class="sec-head reveal"><span class="eyebrow">Как это работает</span><h2>4 шага к осознанной профессии</h2></div>
+    <div class="of-timeline reveal" style="max-width:700px;">
+      <div class="of-step">
+        <div class="of-num">1</div>
+        <div>
+          <h4>Первый семестр / год</h4>
+          <p>Студенты учат общеобразовательные предметы и пробуют тест-драйвы профессий. Знакомство со всеми направлениями — медицина, право, дизайн, педагогика.</p>
+        </div>
+      </div>
+      <div class="of-step">
+        <div class="of-num">2</div>
+        <div>
+          <h4>Профориентация</h4>
+          <p>Прохождение тестов, мастер-классов и встреч с работодателями. Помогаем выявить склонности, сильные стороны и ценности.</p>
+        </div>
+      </div>
+      <div class="of-step">
+        <div class="of-num">3</div>
+        <div>
+          <h4>Профессиональные пробы</h4>
+          <p>Практические мини-курсы по каждому направлению. Попробуешь себя в роли фельдшера, дизайнера, юриста и учителя.</p>
+        </div>
+      </div>
+      <div class="of-step">
+        <div class="of-num">4</div>
+        <div>
+          <h4>Финальный выбор</h4>
+          <p>Полноценный переход на конкретную специальность со второго курса или второго семестра. Все общие предметы автоматически засчитываются.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- КОМУ ПОДХОДИТ -->
+<section class="bg-grey">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="eyebrow v-dark">Для кого</span><h2>Кому это подходит</h2></div>
+    <div class="three-card-grid reveal">
+      <div class="three-card" style="background:var(--brand-dark);">
+        <span>Сомневающимся — тем, кто выбирает между кардинально разными сферами</span>
+      </div>
+      <div class="three-card" style="background:var(--brand-red);">
+        <span>Выпускникам — абитуриентам без чёткого плана на будущее</span>
+      </div>
+      <div class="three-card" style="background:var(--brand-dark-2);">
+        <span>Экспериментаторам — тем, кто хочет попробовать специальность «руками» до подачи документов</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ГЛАВНЫЕ ПРЕИМУЩЕСТВА -->
+<section>
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="eyebrow">Преимущества</span><h2>Главные преимущества Открытого факультета</h2></div>
+    <div class="study-grid reveal">
+      <div class="study-card">
+        <h4>Мягкая адаптация</h4>
+        <p>Нет стресса из-за ошибки в выборе профессии. Пробуешь — потом решаешь.</p>
+      </div>
+      <div class="study-card">
+        <h4>Перезачёт предметов</h4>
+        <p>Общие дисциплины автоматически засчитываются при переходе на конкретную специальность.</p>
+      </div>
+      <div class="study-card">
+        <h4>Экономия денег</h4>
+        <p>Защита от оплаты обучения по специальности, которая разонравится через месяц.</p>
+      </div>
+      <div class="study-card">
+        <h4>Время не теряется</h4>
+        <p>Студент учится полноценно, а не ждёт следующего учебного года для повторного поступления.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ЗАЯВКА -->
+<section id="apply" class="bg-grey">
+  <div class="wrap">
+    <div class="sec-head reveal center"><span class="eyebrow">Запишитесь на консультацию</span><h2>Открытый факультет</h2><p>Расскажем подробнее об условиях поступления и формате обучения.</p></div>
+    <div style="max-width:520px; margin:0 auto;" class="reveal">
+      <div class="apply-card">
+        <div class="crow"><div><b>Телефоны</b><br><span>8/925/87-100-23</span><br><span>8/925/87-800-23</span></div></div>
+        <div class="crow"><div><b>Режим ответа</b><span>10:00 – 17:00</span></div></div>
+        <form data-fake-submit>
+          <input class="field" type="text" placeholder="Ваше имя" required>
+          <input class="field" type="tel" placeholder="Телефон" required>
+          <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Оставить заявку</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-org-name">Образовательный Комплекс Непрерывного Обучения<br>«Первый Школледж»</div>
+    <div class="footer-grid">
+      <div>
+        <img src="assets/logo-white.png" alt="Первый Школледж" class="footer-logo">
+        <p style="font-size:13px; max-width:280px; line-height:1.5;">Образовательный комплекс полного цикла: школа, колледж, допобразование и ДПО.</p>
+        <div class="footer-social">
+          <a href="https://vk.com/club239462795" target="_blank" title="ВКонтакте">ВК</a>
+        </div>
+      </div>
+      <div>
+        <h5>Разделы</h5>
+        <ul>
+          <li><a href="index.html">Главная</a></li>
+          <li><a href="school.html">Школа</a></li>
+          <li><a href="college.html">Колледж</a></li>
+          <li><a href="extra.html">Допобразование</a></li>
+          <li><a href="dpo.html">ДПО</a></li>
+          <li><a href="summer-club.html">Летний клуб</a></li>
+          <li><a href="documents.html">Документы</a></li>
+          <li><a href="location.html">Как добраться</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Контакты</h5>
+        <ul>
+          <li>8/925/87-100-23</li>
+          <li>8/925/87-800-23</li>
+          <li style="margin-top:4px;">МО,&nbsp;г.&nbsp;Балашиха,<br>ул.&nbsp;Советская,&nbsp;д.&nbsp;23</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Первый Школледж. Лицензия на образовательную деятельность.</span>
+      <a href="privacy.html">Политика конфиденциальности</a>
+    </div>
+  </div>
+</footer>
+<button class="consultant-fab"><span class="av">А</span><span>Оставьте свой вопрос</span></button>
+<script src="prices.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

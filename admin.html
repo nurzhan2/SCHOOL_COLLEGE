@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Админ-панель — Первый Школледж</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Manrope',sans-serif;background:#F4F1EC;color:#1A1208;min-height:100vh;}
+
+/* LOGIN */
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;}
+.login-card{background:#fff;border-radius:20px;padding:48px 40px;width:100%;max-width:420px;box-shadow:0 24px 60px -20px rgba(20,10,0,.18);}
+.login-logo{display:flex;align-items:center;gap:10px;margin-bottom:32px;}
+.login-logo img{height:44px;}
+.login-logo span{font-size:18px;font-weight:800;color:#2D4A3E;}
+.login-card h2{font-size:24px;font-weight:800;margin-bottom:8px;}
+.login-card p{color:#8A7E72;font-size:14px;margin-bottom:28px;}
+.field{width:100%;padding:14px 16px;border:1.5px solid #E2DDD6;border-radius:10px;font-family:inherit;font-size:14.5px;margin-bottom:12px;background:#fff;color:#1A1208;transition:.18s;}
+.field:focus{border-color:#2D4A3E;outline:none;box-shadow:0 0 0 4px #DFF0EB;}
+.btn-login{width:100%;padding:15px;background:#C4612A;color:#fff;border:none;border-radius:50px;font-family:inherit;font-size:15px;font-weight:800;cursor:pointer;transition:.2s;}
+.btn-login:hover{background:#A04E20;}
+.login-err{color:#C4612A;font-size:13px;margin-top:10px;display:none;}
+
+/* ADMIN PANEL */
+.admin-wrap{display:none;}
+.admin-header{background:#2D4A3E;color:#fff;padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:100;}
+.admin-header-left{display:flex;align-items:center;gap:16px;}
+.admin-header img{height:36px;filter:brightness(0) invert(1);}
+.admin-header h1{font-size:16px;font-weight:700;color:rgba(255,255,255,.85);}
+.admin-header-right{display:flex;align-items:center;gap:12px;}
+.btn-save-all{background:#C4612A;color:#fff;border:none;border-radius:50px;padding:10px 22px;font-family:inherit;font-size:13.5px;font-weight:700;cursor:pointer;transition:.18s;}
+.btn-save-all:hover{background:#A04E20;}
+.btn-logout{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.2);border-radius:50px;padding:9px 18px;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;transition:.18s;}
+.btn-logout:hover{background:rgba(255,255,255,.2);}
+.saved-badge{background:#4CAF50;color:#fff;font-size:12px;font-weight:700;padding:5px 12px;border-radius:50px;display:none;}
+
+.admin-body{max-width:1100px;margin:0 auto;padding:32px 24px;}
+
+/* TABS */
+.admin-tabs{display:flex;gap:6px;margin-bottom:28px;flex-wrap:wrap;}
+.admin-tab{padding:10px 20px;border-radius:50px;border:1.5px solid #E2DDD6;background:#fff;font-family:inherit;font-size:13.5px;font-weight:700;cursor:pointer;color:#4D4438;transition:.18s;}
+.admin-tab:hover{border-color:#2D4A3E;}
+.admin-tab.active{background:#2D4A3E;color:#fff;border-color:#2D4A3E;}
+
+/* SECTIONS */
+.admin-section{display:none;}
+.admin-section.active{display:block;}
+.section-title{font-size:22px;font-weight:800;margin-bottom:20px;color:#2D4A3E;}
+
+/* PRICE TABLE */
+.price-table{background:#fff;border-radius:16px;overflow:hidden;border:1px solid #E2DDD6;}
+.price-row{display:grid;grid-template-columns:1fr auto;align-items:center;padding:16px 24px;border-bottom:1px solid #E2DDD6;gap:16px;}
+.price-row:last-child{border-bottom:none;}
+.price-row-label{font-size:15px;font-weight:600;}
+.price-row-sub{font-size:12.5px;color:#8A7E72;margin-top:2px;}
+.price-input-wrap{display:flex;align-items:center;gap:8px;}
+.price-input{padding:10px 14px;border:1.5px solid #E2DDD6;border-radius:10px;font-family:inherit;font-size:15px;font-weight:700;color:#C4612A;width:130px;text-align:right;transition:.18s;}
+.price-input:focus{border-color:#C4612A;outline:none;box-shadow:0 0 0 3px rgba(196,97,42,.12);}
+.price-unit{font-size:13px;color:#8A7E72;white-space:nowrap;}
+.changed-dot{width:8px;height:8px;background:#C4612A;border-radius:50%;display:none;}
+.price-input.changed{border-color:#C4612A;}
+.price-input.changed ~ .changed-dot, .price-input.changed + span + .changed-dot{display:block;}
+
+/* GROUP */
+.price-group{margin-bottom:24px;}
+.price-group-title{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#8A7E72;padding:12px 24px;background:#F4F1EC;border-radius:10px 10px 0 0;border:1px solid #E2DDD6;border-bottom:none;}
+
+/* INFO BOX */
+.info-box{background:#DFF0EB;border:1px solid #B8DDD3;border-radius:12px;padding:16px 20px;margin-bottom:20px;font-size:13.5px;color:#2D4A3E;line-height:1.5;}
+.info-box b{font-weight:700;}
+
+/* CHANGES SECTION */
+.changes-wrap{background:#fff;border-radius:16px;padding:24px;border:1px solid #E2DDD6;}
+.changes-list{display:flex;flex-direction:column;gap:8px;margin-top:12px;}
+.change-item{display:flex;align-items:center;gap:12px;padding:12px 16px;background:#FFF5F0;border:1px solid #FDDCC8;border-radius:10px;font-size:13.5px;}
+.change-arrow{color:#8A7E72;}
+.change-new{font-weight:800;color:#C4612A;}
+.no-changes{color:#8A7E72;font-size:14px;}
+
+/* EXPORT */
+.export-section{background:#fff;border-radius:16px;padding:28px;border:1px solid #E2DDD6;margin-top:24px;}
+.export-section h3{font-size:16px;font-weight:700;margin-bottom:12px;}
+.export-section p{font-size:13.5px;color:#8A7E72;margin-bottom:16px;line-height:1.6;}
+.btn-export{background:#2D4A3E;color:#fff;border:none;border-radius:50px;padding:12px 24px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;transition:.18s;margin-right:10px;}
+.btn-export:hover{background:#1E3329;}
+.btn-reset{background:#fff;color:#C4612A;border:1.5px solid #C4612A;border-radius:50px;padding:11px 22px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;transition:.18s;}
+.btn-reset:hover{background:#FFF5F0;}
+
+@media(max-width:640px){
+  .admin-header{padding:0 16px;}
+  .admin-body{padding:20px 14px;}
+  .price-row{grid-template-columns:1fr;gap:8px;}
+  .price-input{width:100%;}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-wrap" id="loginWrap">
+  <div class="login-card">
+    <div class="login-logo">
+      <img src="assets/logo.png" alt="Школледж">
+      <span>Первый Школледж</span>
+    </div>
+    <h2>Вход в панель</h2>
+    <p>Введите пароль для доступа к настройкам</p>
+    <input class="field" type="password" id="passInput" placeholder="Пароль" onkeydown="if(event.key==='Enter')doLogin()">
+    <button class="btn-login" onclick="doLogin()">Войти</button>
+    <div class="login-err" id="loginErr">Неверный пароль. Попробуйте снова.</div>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div class="admin-wrap" id="adminWrap">
+  <div class="admin-header">
+    <div class="admin-header-left">
+      <img src="assets/logo.png" alt="Школледж">
+      <h1>Панель управления ценами</h1>
+    </div>
+    <div class="admin-header-right">
+      <span class="saved-badge" id="savedBadge">Сохранено!</span>
+      <button class="btn-save-all" onclick="saveAll()">Сохранить все изменения</button>
+      <button class="btn-logout" onclick="logout()">Выйти</button>
+    </div>
+  </div>
+
+  <div class="admin-body">
+    <div class="info-box">
+      <b>Как это работает:</b> измените нужные цены → нажмите «Сохранить все изменения». Цены сразу обновятся на всех страницах сайта для всех посетителей этого браузера. Чтобы цены отображались у всех — после изменений скачайте HTML-файлы через «Экспорт».
+    </div>
+
+    <!-- TABS -->
+    <div class="admin-tabs">
+      <button class="admin-tab active" onclick="switchTab('school')">Школа</button>
+      <button class="admin-tab" onclick="switchTab('college')">Колледж</button>
+      <button class="admin-tab" onclick="switchTab('extra')">Допобразование</button>
+      <button class="admin-tab" onclick="switchTab('dpo')">ДПО</button>
+      <button class="admin-tab" onclick="switchTab('summer')">Летний клуб</button>
+      <button class="admin-tab" onclick="switchTab('events')">События</button>
+      <button class="admin-tab" onclick="switchTab('changes')">Изменения</button>
+    </div>
+
+    <!-- ШКОЛА -->
+    <div class="admin-section active" id="tab-school">
+      <div class="section-title">Цены — Школа (0–9 классы)</div>
+      <div class="price-group">
+        <div class="price-group-title">Стоимость обучения</div>
+        <div class="price-table">
+          <div class="price-row">
+            <div><div class="price-row-label">Подготовительный класс</div><div class="price-row-sub">0 класс, мягкий старт</div></div>
+            <div class="price-input-wrap"><input class="price-input" type="number" data-key="school_prep" data-page="school" placeholder="29000"><span class="price-unit">р/мес</span><span class="changed-dot"></span></div>
+          </div>
+          <div class="price-row">
+            <div><div class="price-row-label">Начальная школа</div><div class="price-row-sub">1–4 классы</div></div>
+            <div class="price-input-wrap"><input class="price-input" type="number" data-key="school_primary" data-page="school" placeholder="35000"><span class="price-unit">р/мес</span><span class="changed-dot"></span></div>
+          </div>
+          <div class="price-row">
+            <div><div class="price-row-label">Средняя школа</div><div class="price-row-sub">5–9 классы</div></div>
+            <div class="price-input-wrap"><input class="price-input" type="number" data-key="school_middle" data-page="school" placeholder="39700"><span class="price-unit">р/мес</span><span class="changed-dot"></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- КОЛЛЕДЖ -->
+    <div class="admin-section" id="tab-college">
+      <div class="section-title">Цены — Колледж (СПО)</div>
+      <div class="price-group">
+        <div class="price-group-title">Программы среднего профессионального образования</div>
+        <div class="price-table">
+          <div class="price-row">
+            <div><div class="price-row-label">Лечебное дело</div><div class="price-row-sub">31.02.01 · Очная · 3 года 10 месяцев</div></div>
+            <div class="price-input-wrap"><input class="price-input" type="number" data-key="college_medicine" placeholder="23000"><span class="price-unit">р/мес</span><span class="changed-dot"></span></div>
+          </div>
+          <div class="price-row">
+            <div><div class="price-row-label">Сестринское дело</div><div class="price-row-sub">34.02.01 · Очная · 2 года 10 месяцев</div></div>
+            <div class="price-input-wrap"><input class="price-input" type="number" data-key="college_nursing" placeholder="23000"><span class="price-unit">р/мес</span><span class="changed-dot"></span></div>
+          </div>
+          <div class="price-row">
+            <div><div class="price-row-label">Юриспруденция</div><div class="price-row-sub">40.02.04 · Очная · 2 года 10 месяцев</div></div>
+            <div class="price-input-wrap"><input class="price-input" type="number" data-key="college_law" placeholder="20000"><span class="price-unit">р/мес</span><span class="changed-dot"></span></div>
+          </div>
+          <div class="price-row">
+            <div><div class="price-row-label">Дизайн по отраслям</div><div class="price-row-sub">54.02.01 · Очная · 3 года 10 месяцев</div></div>
+            <div class="price-input-wrap"><input class="price-input" type="number" data-key="college_design" placeholder="23000"><span class="price-unit">р/мес</span><span class="changed-dot"></span></div>
+          </div>
+          <div class="price-row">
+            <div><div class="price-row-label">Преподавание в начальных классах</div><div class="price-row-sub">44.02.02 · Очная · 3 года 10 месяцев</div></div>
+            <div class="price-input-wrap"><input class="price-input" type="number" data-key="college_teaching" placeholder="23000"><span class="price-unit">р/мес</span><span class="changed-dot"></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ДОПОБРАЗОВАНИЕ -->
+    <div class="admin-section" id="tab-extra">
+      <div class="section-title">Цены — Дополнительное образование</div>
+
+      <div class="price-group">
+        <div class="price-group-title">Школьные кружки</div>
+        <div class="price-table">
+          <div class="price-row">
+            <div><div class="price-row-label">Подготовка к школе</div><div class="price-row-sub">от 5 лет · 2 р/нед · 3 урока по 30 мин</div></div>
+            <div class="price-input-wrap"><input class="price-input" type="number" data-key="extra_prep" placeholder="10500"><span class="price-unit">р/мес</span><span class="changed-dot"></span></div>
+          </div>
+          <div class="price-row">
+            <div><div class="price-row-label">Языковая школа</div><div class="price-row-sub">2 р/нед</div></div>
+            <div class="price-input-wrap"><input class="price-input" type="number" data-key="extra_lang" placeholder="8000"><span class="price-unit">р/мес</span><span class="changed-dot"></span></div>
+          </div>
+          <div class="price-row">
+            <div><div class="price-row-label">Шахматная школа</div><div class="price-row-sub">2 р/нед</div></div>
+            <div class="price-input-wrap"><input class="price-input" type="number" data-key="extra_chess" placeholder="8000"><span class="price-unit">р/мес</span><span class="changed-dot"></span></div>
+          </div>
+          <div class="price-row">
+            <div><div class="price-row-label">Школа современного танца</div><div class="price-row-sub">р/мес</div></div>
+            <div class="price-input-wrap"><input class="price-input" type="number" data-key="extra_dance" placeholder="8000"><span class="price-unit">р/мес</span><span class="changed-dot"></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="price-group">
+        <div class="price-group-title">Музыка и вокал</div>
+        <div class="price-table">
+          <div class="price-row">
+            <div><div class="price-row-label">Гитара, фортепиано, саксофон</div></div>
+            <div class="price-input-wrap"><input class="price-input" type="number" data-key="extra_music" placeholder="1000"><span class="price-unit">р/занятие</span><span class="changed-dot"></span></div>
+          </div>
+          <div class="price-row">
+            <div><div class="price-row-label">Школа вокала</div></div>
+            <div class="price-input-wrap"><input class="price-input" type="number" data-key="extra_vocal" placeholder="900"><span class="price-unit">р/занятие</span><span class="changed-dot"></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="price-group">
+        <div class="price-group-title">Подготовка к экзаменам</div>
+        <div class="price-table">
+          <div class="price-row">
+            <div><div class="price-row-label">ВПР / ОГЭ / ЕГЭ</div></div>
+            <div class="price-input-wrap"><input class="price-input" type="number" data-key="extra_exam" placeholder="1500"><span class="price-unit">р/занятие</span><span class="changed-dot"></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="price-group">
+        <div class="price-group-title">Творческие студии</div>
+        <div class="price-table">
+          <div class="price-row">
+            <div><div class="price-row-label">Мультстудия</div></div>
+            <div class="price-input-wrap"><input class="price-input" type="number" data-key="extra_mult" placeholder="700"><span class="price-unit">р/занятие</span><span class="changed-dot"></span></div>
+          </div>
+          <div class="price-row">
+            <div><div class="price-row-label">Сценическое искусство</div></div>
+            <div class="price-input-wrap"><input class="price-input" type="number" data-key="extra_theatre" placeholder="900"><span class="price-unit">р/занятие</span><span class="changed-dot"></span></div>
+          </div>
+          <div class="price-row">
+            <div><div class="price-row-label">ИЗО студия — Общеразвивающая</div><div class="price-row-sub">2 р/нед</div></div>
+            <div class="price-input-wrap"><input class="price-input" type="number" data-key="extra_izo1" placeholder="3600"><span class="price-unit">р/мес</span><span class="changed-dot"></span></div>
+          </div>
+          <div class="price-row">
+            <div><div class="price-row-label">ИЗО студия — Предпрофессиональная</div><div class="price-row-sub">2 р/нед</div></div>
+            <div class="price-input-wrap"><input class="price-input" type="number" data-key="extra_izo2" placeholder="12000"><span class="price-unit">р/мес</span><span class="changed-dot"></span></div>
+          </div>
+          <div class="price-row">
+            <div><div class="price-row-label">Школа каллиграфии</div><div class="price-row-sub">2 р/нед</div></div>
+            <div class="price-input-wrap"><input class="price-input" type="number" data-key="extra_calli" placeholder="3600"><span class="price-unit">р/мес</span><span class="changed-dot"></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ДПО -->
+    <div class="admin-section" id="tab-dpo">
+      <div class="section-title">Цены — Проф. допобразование (ДПО)</div>
+      <div class="price-group">
+        <div class="price-group-title">Программы переподготовки</div>
+        <div class="price-table">
+          <div class="price-row">
+            <div><div class="price-row-label">Теория и методика преподавания хореографии</div></div>
+            <div class="price-input-wrap"><input class="price-input" type="number" data-key="dpo_choreo" placeholder="20000"><span class="price-unit">р</span><span class="changed-dot"></span></div>
+          </div>
+          <div class="price-row">
+            <div><div class="price-row-label">Специалист торгового зала аптеки</div></div>
+            <div class="price-input-wrap"><input class="price-input" type="number" data-key="dpo_pharmacy" placeholder="53000"><span class="price-unit">р</span><span class="changed-dot"></span></div>
+          </div>
+          <div class="price-row">
+            <div><div class="price-row-label">Косметик-эстетик</div></div>
+            <div class="price-input-wrap"><input class="price-input" type="number" data-key="dpo_cosmet" placeholder="45000"><span class="price-unit">р</span><span class="changed-dot"></span></div>
+          </div>
+          <div class="price-row">
+            <div><div class="price-row-label">Сестринское дело в косметологии</div></div>
+            <div class="price-input-wrap"><input class="price-input" type="number" data-key="dpo_nursing_cosmet" placeholder="27000"><span class="price-unit">р</span><span class="changed-dot"></span></div>
+          </div>
+          <div class="price-row">
+            <div><div class="price-row-label">Нутрициология (1 этап)</div></div>
+            <div class="price-input-wrap"><input class="price-input" type="number" data-key="dpo_nutri" placeholder="36000"><span class="price-unit">р</span><span class="changed-dot"></span></div>
+          </div>
+          <div class="price-row">
+            <div><div class="price-row-label">Сестринское дело в косметологии (2 этап)</div></div>
+            <div class="price-input-wrap"><input class="price-input" type="number" data-key="dpo_nursing_cosmet2" placeholder="25000"><span class="price-unit">р</span><span class="changed-dot"></span></div>
+          </div>
+          <div class="price-row">
+            <div><div class="price-row-label">Сестринское дело в диетологии (1 и 2 этап)</div></div>
+            <div class="price-input-wrap"><input class="price-input" type="number" data-key="dpo_diet" placeholder="60000"><span class="price-unit">р</span><span class="changed-dot"></span></div>
+          </div>
+          <div class="price-row">
+            <div><div class="price-row-label">Медицинский массаж</div></div>
+            <div class="price-input-wrap"><input class="price-input" type="number" data-key="dpo_massage" placeholder="33000"><span class="price-unit">р</span><span class="changed-dot"></span></div>
+          </div>
+          <div class="price-row">
+            <div><div class="price-row-label">Сестринское дело в психиатрии</div></div>
+            <div class="price-input-wrap"><input class="price-input" type="number" data-key="dpo_psych" placeholder="14000"><span class="price-unit">р</span><span class="changed-dot"></span></div>
+          </div>
+          <div class="price-row">
+            <div><div class="price-row-label">Санитар</div></div>
+            <div class="price-input-wrap"><input class="price-input" type="number" data-key="dpo_sanitar" placeholder="10000"><span class="price-unit">р</span><span class="changed-dot"></span></div>
+          </div>
+          <div class="price-row">
+            <div><div class="price-row-label">Медицинский регистратор</div></div>
+            <div class="price-input-wrap"><input class="price-input" type="number" data-key="dpo_registrar" placeholder="10000"><span class="price-unit">р</span><span class="changed-dot"></span></div>
+          </div>
+          <div class="price-row">
+            <div><div class="price-row-label">Младшая медицинская сестра по уходу за больными</div></div>
+            <div class="price-input-wrap"><input class="price-input" type="number" data-key="dpo_junior" placeholder="10000"><span class="price-unit">р</span><span class="changed-dot"></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ЛЕТНИЙ КЛУБ -->
+    <div class="admin-section" id="tab-summer">
+      <div class="section-title">Цены — Летний клуб</div>
+      <div class="price-group">
+        <div class="price-group-title">Стоимость смены</div>
+        <div class="price-table">
+          <div class="price-row">
+            <div><div class="price-row-label">Городская смена (5 дней)</div><div class="price-row-sub">Питание включено</div></div>
+            <div class="price-input-wrap"><input class="price-input" type="number" data-key="summer_shift" placeholder="10500"><span class="price-unit">р/смена</span><span class="changed-dot"></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ИЗМЕНЕНИЯ -->
+    <div class="admin-section" id="tab-changes">
+      <div class="section-title">История изменений</div>
+      <div class="changes-wrap">
+        <p style="color:#8A7E72;font-size:14px;margin-bottom:12px;">Все изменения цен по сравнению со значениями по умолчанию:</p>
+        <div class="changes-list" id="changesList">
+          <div class="no-changes">Изменений пока нет</div>
+        </div>
+      </div>
+
+      <div class="export-section">
+        <h3>Экспорт изменений</h3>
+        <p>Чтобы цены отображались у всех посетителей — скопируйте список изменений и передайте разработчику для обновления HTML-файлов.</p>
+        <button class="btn-export" onclick="exportChanges()">Скопировать изменения</button>
+        <button class="btn-reset" onclick="resetAll()">Сбросить все изменения</button>
+      </div>
+    </div>
+
+    <!-- СОБЫТИЯ -->
+    <div class="admin-section" id="tab-events">
+      <div class="section-title">События (раздел «События» на главной)</div>
+      <div class="info-box" style="margin-bottom:18px;">
+        <b>Как это работает:</b> заполните поля, при желании выберите фото — и нажмите «Добавить событие». Оно сразу появится на сайте в разделе «События». События хранятся на сервере и видны всем посетителям. <b>Работает только на сервере (после деплоя), не в локальном просмотре файла.</b>
+      </div>
+
+      <div class="price-group" style="display:grid; gap:12px; max-width:640px;">
+        <div class="price-group-title">Новое событие</div>
+        <input class="field" id="evTitle" type="text" placeholder="Заголовок (например: День открытых дверей)">
+        <input class="field" id="evDate" type="text" placeholder="Дата (например: 16 апреля или 19–20 ноября)">
+        <textarea class="field" id="evText" rows="3" placeholder="Короткое описание"></textarea>
+        <input class="field" id="evLink" type="text" placeholder="Ссылка «Подробнее» (необязательно, например на пост ВК)">
+        <input class="field" id="evPhoto" type="file" accept="image/*">
+        <button class="btn-save-all" type="button" onclick="addEvent()">Добавить событие</button>
+        <div id="evMsg" style="font-size:14px; color:#C4612A; min-height:18px;"></div>
+      </div>
+
+      <div class="section-title" style="margin-top:28px;">Опубликованные события</div>
+      <div id="adminEventsList" class="changes-list"><div class="no-changes">Загрузка…</div></div>
+    </div>
+
+  </div><!-- /admin-body -->
+</div><!-- /admin-wrap -->
+
+<script>
+// ============================================
+// КОНФИГУРАЦИЯ
+// ============================================
+const PASS = 'shkol2026'; // Пароль для входа
+
+// Все цены с дефолтными значениями и описаниями для отображения
+const PRICE_CONFIG = {
+  school_prep:         { default: 29000, label: 'Школа · Подготовительный класс', unit: 'р/мес' },
+  school_primary:      { default: 35000, label: 'Школа · Начальная школа (1–4 кл)', unit: 'р/мес' },
+  school_middle:       { default: 39700, label: 'Школа · Средняя школа (5–9 кл)', unit: 'р/мес' },
+  college_medicine:    { default: 23000, label: 'Колледж · Лечебное дело', unit: 'р/мес' },
+  college_nursing:     { default: 23000, label: 'Колледж · Сестринское дело', unit: 'р/мес' },
+  college_law:         { default: 20000, label: 'Колледж · Юриспруденция', unit: 'р/мес' },
+  college_design:      { default: 23000, label: 'Колледж · Дизайн по отраслям', unit: 'р/мес' },
+  college_teaching:    { default: 23000, label: 'Колледж · Преподавание в нач. классах', unit: 'р/мес' },
+  extra_prep:          { default: 10500, label: 'Допобр · Подготовка к школе', unit: 'р/мес' },
+  extra_lang:          { default: 8000,  label: 'Допобр · Языковая школа', unit: 'р/мес' },
+  extra_chess:         { default: 8000,  label: 'Допобр · Шахматная школа', unit: 'р/мес' },
+  extra_dance:         { default: 8000,  label: 'Допобр · Школа современного танца', unit: 'р/мес' },
+  extra_music:         { default: 1000,  label: 'Допобр · Гитара/фортепиано/саксофон', unit: 'р/занятие' },
+  extra_vocal:         { default: 900,   label: 'Допобр · Школа вокала', unit: 'р/занятие' },
+  extra_exam:          { default: 1500,  label: 'Допобр · ВПР/ОГЭ/ЕГЭ', unit: 'р/занятие' },
+  extra_mult:          { default: 700,   label: 'Допобр · Мультстудия', unit: 'р/занятие' },
+  extra_theatre:       { default: 900,   label: 'Допобр · Сценическое искусство', unit: 'р/занятие' },
+  extra_izo1:          { default: 3600,  label: 'Допобр · ИЗО Общеразвивающая', unit: 'р/мес' },
+  extra_izo2:          { default: 12000, label: 'Допобр · ИЗО Предпрофессиональная', unit: 'р/мес' },
+  extra_calli:         { default: 3600,  label: 'Допобр · Каллиграфия', unit: 'р/мес' },
+  dpo_choreo:          { default: 20000, label: 'ДПО · Хореография', unit: 'р' },
+  dpo_pharmacy:        { default: 53000, label: 'ДПО · Специалист торгового зала аптеки', unit: 'р' },
+  dpo_cosmet:          { default: 45000, label: 'ДПО · Косметик-эстетик', unit: 'р' },
+  dpo_nursing_cosmet:  { default: 27000, label: 'ДПО · Сестринское в косметологии', unit: 'р' },
+  dpo_nutri:           { default: 36000, label: 'ДПО · Нутрициология (1 эт)', unit: 'р' },
+  dpo_nursing_cosmet2: { default: 25000, label: 'ДПО · Сестринское в косметологии (2 эт)', unit: 'р' },
+  dpo_diet:            { default: 60000, label: 'ДПО · Сестринское в диетологии', unit: 'р' },
+  dpo_massage:         { default: 33000, label: 'ДПО · Медицинский массаж', unit: 'р' },
+  dpo_psych:           { default: 14000, label: 'ДПО · Сестринское в психиатрии', unit: 'р' },
+  dpo_sanitar:         { default: 10000, label: 'ДПО · Санитар', unit: 'р' },
+  dpo_registrar:       { default: 10000, label: 'ДПО · Медицинский регистратор', unit: 'р' },
+  dpo_junior:          { default: 10000, label: 'ДПО · Младшая медсестра', unit: 'р' },
+  summer_shift:        { default: 10500, label: 'Летний клуб · Смена (5 дней)', unit: 'р' },
+};
+
+const STORAGE_KEY = 'shkolledge_prices';
+const SESSION_KEY = 'shkolledge_admin_auth';
+
+// ============================================
+// AUTH
+// ============================================
+function doLogin() {
+  const val = document.getElementById('passInput').value;
+  if(val === PASS) {
+    sessionStorage.setItem(SESSION_KEY, '1');
+    document.getElementById('loginWrap').style.display = 'none';
+    document.getElementById('adminWrap').style.display = 'block';
+    initAdmin();
+  } else {
+    document.getElementById('loginErr').style.display = 'block';
+    document.getElementById('passInput').value = '';
+    document.getElementById('passInput').focus();
+  }
+}
+
+function logout() {
+  sessionStorage.removeItem(SESSION_KEY);
+  location.reload();
+}
+
+// ============================================
+// INIT
+// ============================================
+function initAdmin() {
+  const saved = getSaved();
+
+  // Заполняем все поля
+  document.querySelectorAll('.price-input').forEach(input => {
+    const key = input.dataset.key;
+    if(!key) return;
+    const cfg = PRICE_CONFIG[key];
+    const val = saved[key] !== undefined ? saved[key] : cfg.default;
+    input.value = val;
+    input.dataset.original = cfg.default;
+    if(val !== cfg.default) input.classList.add('changed');
+
+    // Слушаем изменения
+    input.addEventListener('input', () => {
+      const newVal = parseInt(input.value) || 0;
+      const orig = parseInt(input.dataset.original);
+      if(newVal !== orig) {
+        input.classList.add('changed');
+      } else {
+        input.classList.remove('changed');
+      }
+      updateChangesList();
+    });
+  });
+
+  updateChangesList();
+  applyPricesToPage();
+}
+
+// ============================================
+// STORAGE
+// ============================================
+function getSaved() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } 
+  catch(e) { return {}; }
+}
+
+function saveAll() {
+  const data = {};
+  document.querySelectorAll('.price-input').forEach(input => {
+    const key = input.dataset.key;
+    if(key && input.value) data[key] = parseInt(input.value);
+  });
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  
+  // Показываем badge
+  const badge = document.getElementById('savedBadge');
+  badge.style.display = 'inline-block';
+  setTimeout(() => badge.style.display = 'none', 2500);
+
+  updateChangesList();
+  applyPricesToPage();
+}
+
+function resetAll() {
+  if(!confirm('Сбросить ВСЕ изменения цен к значениям по умолчанию?')) return;
+  localStorage.removeItem(STORAGE_KEY);
+  document.querySelectorAll('.price-input').forEach(input => {
+    const key = input.dataset.key;
+    if(!key) return;
+    input.value = PRICE_CONFIG[key].default;
+    input.classList.remove('changed');
+  });
+  updateChangesList();
+}
+
+// ============================================
+// CHANGES LIST
+// ============================================
+function updateChangesList() {
+  const list = document.getElementById('changesList');
+  const changes = [];
+
+  document.querySelectorAll('.price-input').forEach(input => {
+    const key = input.dataset.key;
+    if(!key) return;
+    const cfg = PRICE_CONFIG[key];
+    const newVal = parseInt(input.value) || 0;
+    const orig = cfg.default;
+    if(newVal !== orig) {
+      changes.push({ key, label: cfg.label, old: orig, newVal, unit: cfg.unit });
+    }
+  });
+
+  if(changes.length === 0) {
+    list.innerHTML = '<div class="no-changes">Изменений пока нет</div>';
+    return;
+  }
+
+  list.innerHTML = changes.map(ch => `
+    <div class="change-item">
+      <span style="flex:1;font-weight:600">${ch.label}</span>
+      <span style="color:#8A7E72">${formatPrice(ch.old)} ${ch.unit}</span>
+      <span class="change-arrow">→</span>
+      <span class="change-new">${formatPrice(ch.newVal)} ${ch.unit}</span>
+    </div>
+  `).join('');
+}
+
+function formatPrice(n) {
+  return n.toLocaleString('ru-RU');
+}
+
+// ============================================
+// APPLY PRICES TO PAGE (через postMessage/broadcast)
+// ============================================
+function applyPricesToPage() {
+  // Сохраняем в localStorage — другие страницы сами подхватят через prices.js
+  console.log('Цены сохранены в localStorage');
+}
+
+// ============================================
+// EXPORT
+// ============================================
+function exportChanges() {
+  const saved = getSaved();
+  const lines = ['ИЗМЕНЕНИЯ ЦЕН — ПЕРВЫЙ ШКОЛЛЕДЖ', '='.repeat(40)];
+  let hasChanges = false;
+
+  Object.entries(saved).forEach(([key, val]) => {
+    const cfg = PRICE_CONFIG[key];
+    if(cfg && val !== cfg.default) {
+      lines.push(`${cfg.label}: ${formatPrice(cfg.default)} → ${formatPrice(val)} ${cfg.unit}`);
+      hasChanges = true;
+    }
+  });
+
+  if(!hasChanges) { alert('Нет изменений для экспорта'); return; }
+
+  const text = lines.join('\n');
+  navigator.clipboard.writeText(text).then(() => {
+    alert('Список изменений скопирован в буфер обмена!');
+  }).catch(() => {
+    // Fallback
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    alert('Скопировано!');
+  });
+}
+
+// ============================================
+// TABS
+// ============================================
+function switchTab(name) {
+  document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('tab-' + name).classList.add('active');
+  if (name === 'events') loadAdminEvents();
+}
+
+// ============================================
+// СОБЫТИЯ (через API сервера)
+// ============================================
+function evEsc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+function loadAdminEvents() {
+  const box = document.getElementById('adminEventsList');
+  if (!box) return;
+  box.innerHTML = '<div class="no-changes">Загрузка…</div>';
+  fetch('/api/events')
+    .then(r => { if(!r.ok) throw new Error(); return r.json(); })
+    .then(list => {
+      if (!list.length) { box.innerHTML = '<div class="no-changes">Событий пока нет</div>'; return; }
+      box.innerHTML = list.map(ev => `
+        <div class="change-item" style="display:flex; gap:14px; align-items:center; justify-content:space-between; padding:12px; border:1px solid #eee; border-radius:10px; margin-bottom:10px;">
+          <div style="display:flex; gap:12px; align-items:center; min-width:0;">
+            ${ev.photo ? `<img src="${evEsc(ev.photo)}" style="width:64px; height:48px; object-fit:cover; border-radius:8px; flex:none;">` : ''}
+            <div style="min-width:0;">
+              <b>${evEsc(ev.title)}</b>${ev.date ? ` · <span style="color:#8A7E72;">${evEsc(ev.date)}</span>` : ''}
+              <div style="font-size:13px; color:#8A7E72; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${evEsc(ev.text)}</div>
+            </div>
+          </div>
+          <button class="btn-reset" type="button" onclick="deleteEvent('${ev.id}')">Удалить</button>
+        </div>`).join('');
+    })
+    .catch(() => { box.innerHTML = '<div class="no-changes" style="color:#C4612A;">API недоступно. События работают только на сервере (после деплоя).</div>'; });
+}
+
+async function addEvent() {
+  const msg = document.getElementById('evMsg');
+  const title = document.getElementById('evTitle').value.trim();
+  const date = document.getElementById('evDate').value.trim();
+  const text = document.getElementById('evText').value.trim();
+  const link = document.getElementById('evLink').value.trim();
+  const fileEl = document.getElementById('evPhoto');
+  if (!title) { msg.textContent = 'Укажите заголовок'; return; }
+  msg.style.color = '#8A7E72'; msg.textContent = 'Сохраняю…';
+  try {
+    let photo = '';
+    if (fileEl.files && fileEl.files[0]) {
+      const fd = new FormData(); fd.append('photo', fileEl.files[0]);
+      const up = await fetch('/api/upload', { method:'POST', headers:{'x-admin-key':PASS}, body: fd });
+      if (!up.ok) throw new Error('upload');
+      photo = (await up.json()).url;
+    }
+    const r = await fetch('/api/events', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-admin-key':PASS},
+      body: JSON.stringify({ title, date, text, link, photo })
+    });
+    if (!r.ok) throw new Error('save');
+    msg.style.color = '#2E7D32'; msg.textContent = 'Событие добавлено!';
+    document.getElementById('evTitle').value=''; document.getElementById('evDate').value='';
+    document.getElementById('evText').value=''; document.getElementById('evLink').value=''; fileEl.value='';
+    loadAdminEvents();
+  } catch (e) {
+    msg.style.color = '#C4612A';
+    msg.textContent = 'Не удалось сохранить. Проверьте, что сайт открыт на сервере (после деплоя), а не как локальный файл.';
+  }
+}
+
+function deleteEvent(id) {
+  if (!confirm('Удалить это событие?')) return;
+  fetch('/api/events/' + id, { method:'DELETE', headers:{'x-admin-key':PASS} })
+    .then(r => { if(!r.ok) throw new Error(); loadAdminEvents(); })
+    .catch(() => alert('Не удалось удалить (нужен сервер).'));
+}
+
+// ============================================
+// AUTO LOGIN CHECK
+// ============================================
+if(sessionStorage.getItem(SESSION_KEY)) {
+  document.getElementById('loginWrap').style.display = 'none';
+  document.getElementById('adminWrap').style.display = 'block';
+  window.addEventListener('DOMContentLoaded', initAdmin);
+}
+</script>
+</body>
+</html>
