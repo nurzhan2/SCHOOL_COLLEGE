@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Колледж — Первый Школледж</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <div class="nav wrap">
+    <a href="index.html" class="logo"><img src="assets/logo.png" alt="Первый Школледж"></a>
+    <nav class="nav-links">
+      <a href="index.html">Главная</a>
+      <a href="school.html">Школа</a>
+      <a href="college.html" class="active">Колледж</a>
+      <a href="extra.html">Допобразование</a>
+      <a href="dpo.html">ДПО</a>
+      <a href="summer-club.html">Летний клуб</a>
+      <a href="#" onclick="alert('Личный кабинет в разработке'); return false;">Личный кабинет</a>
+    </nav>
+    <a href="#apply" class="nav-cta">Оставить заявку</a>
+    <button class="nav-burger" aria-label="Меню"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg><span>Меню</span></button>
+  </div>
+</header>
+<div class="mobile-menu">
+  <button class="mclose" aria-label="Закрыть">✕</button>
+  <a href="index.html">Главная</a>
+  <a href="school.html">Школа</a>
+  <a href="college.html">Колледж</a>
+  <a href="extra.html">Допобразование</a>
+  <a href="dpo.html">ДПО</a>
+  <a href="summer-club.html">Летний клуб</a>
+  <a href="#" onclick="alert('Личный кабинет в разработке'); return false;">Личный кабинет</a>
+  <a href="#apply" class="nav-cta">Оставить заявку</a>
+</div>
+
+<section class="page-hero">
+  <div class="wrap">
+    <div class="page-hero-inner reveal">
+      <div>
+        <span class="eyebrow v-lime">Колледж на базе 9 классов</span>
+        <h1>Среднее профессиональное образование с дипломом государственного образца</h1>
+        <p class="lead">4 направления подготовки, 5 программ. Медицина, право, дизайн, педагогика. Поступление по результатам собеседования.</p>
+        <div class="btn-row">
+          <a href="#apply" class="btn btn-lime">Подать документы</a>
+          <a href="#programs" class="btn btn-outline-light">Все программы</a>
+        </div>
+      </div>
+      <div style="position:relative; z-index:1;">
+        <img src="assets/images/college-card.jpg" alt="Студенты колледжа" style="border-radius:var(--radius-md); width:100%; object-fit:cover; aspect-ratio:4/3;">
+        <div class="hf-box" style="margin-top:14px;">
+          <div class="hf-row"><b>База поступления</b><span>После 9 класса</span></div>
+          <div class="hf-row"><b>Форма обучения</b><span>Очная</span></div>
+          <div class="hf-row"><b>Режим (колледж)</b><span>с 10:00 до 17:00</span></div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="programs" class="bg-grey">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="eyebrow">Программы</span><h2>Программы колледжа</h2><p>Поступление на базе 9 классов.</p></div>
+
+    <div id="programs-list" class="prog-hover-grid reveal">
+      <a href="college-medicine.html" class="prog-hover-card ph-med" style="background-image:url('assets/images/medicine-program.jpg');">
+        <div class="ph-top"><span class="ph-chip">31.02.01</span><span class="ph-chip">Медицина</span></div>
+        <div class="ph-bottom"><div class="ph-title">Лечебное дело</div><div class="ph-title-line"></div>
+          <div class="ph-details"><p>Подготовка фельдшеров — специалистов с правом самостоятельной постановки диагноза.</p><div class="ph-fact">Срок: 3 года 10 месяцев · Очная</div><div class="ph-fact">Стоимость: 23 000 р/мес</div><span class="ph-link">Подробнее →</span></div>
+        </div>
+      </a>
+      <a href="college-nursing.html" class="prog-hover-card ph-med" style="background-image:url('assets/images/nursing-program.jpg');">
+        <div class="ph-top"><span class="ph-chip">34.02.01</span><span class="ph-chip">Медицина</span></div>
+        <div class="ph-bottom"><div class="ph-title">Сестринское дело</div><div class="ph-title-line"></div>
+          <div class="ph-details"><p>Профессиональный уход за пациентами — самостоятельный специалист медицины.</p><div class="ph-fact">Срок: 2 года 10 месяцев · Очная</div><div class="ph-fact">Стоимость: 23 000 р/мес</div><span class="ph-link">Подробнее →</span></div>
+        </div>
+      </a>
+      <a href="college-law.html" class="prog-hover-card ph-law" style="background-image:url('assets/images/law-program.jpg');">
+        <div class="ph-top"><span class="ph-chip">40.02.04</span><span class="ph-chip">Право</span></div>
+        <div class="ph-bottom"><div class="ph-title">Юриспруденция</div><div class="ph-title-line"></div>
+          <div class="ph-details"><p>Быстрый путь к востребованной правовой профессии — карьера уже в 18–19 лет.</p><div class="ph-fact">Срок: 2 года 10 месяцев · Очная</div><div class="ph-fact">Стоимость: 20 000 р/мес</div><span class="ph-link">Подробнее →</span></div>
+        </div>
+      </a>
+      <a href="college-design.html" class="prog-hover-card ph-design" style="background-image:url('assets/images/design-program.jpg');">
+        <div class="ph-top"><span class="ph-chip">54.02.01</span><span class="ph-chip">Дизайн</span></div>
+        <div class="ph-bottom"><div class="ph-title">Дизайн по отраслям</div><div class="ph-title-line"></div>
+          <div class="ph-details"><p>Универсальные художники-проектировщики — от веб до интерьера.</p><div class="ph-fact">Срок: 3 года 10 месяцев · Очная</div><div class="ph-fact">Стоимость: 23 000 р/мес</div><span class="ph-link">Подробнее →</span></div>
+        </div>
+      </a>
+      <a href="college-teaching.html" class="prog-hover-card ph-edu" style="background-image:url('assets/images/teaching-program.jpg');">
+        <div class="ph-top"><span class="ph-chip">44.02.02</span><span class="ph-chip">Педагогика</span></div>
+        <div class="ph-bottom"><div class="ph-title">Преподавание в начальных классах</div><div class="ph-title-line"></div>
+          <div class="ph-details"><p>Педагогика, психология и методика для детей 6–11 лет.</p><div class="ph-fact">Срок: 3 года 10 месяцев · Очная</div><div class="ph-fact">Стоимость: 23 000 р/мес</div><span class="ph-link">Подробнее →</span></div>
+        </div>
+      </a>
+      <a href="open-faculty.html" class="prog-hover-card ph-open" style="background-image:url('assets/images/open-faculty-hero.jpg');">
+        <div class="ph-top"><span class="ph-chip">Свободный факультет</span></div>
+        <div class="ph-bottom"><div class="ph-title">Открытый факультет</div><div class="ph-title-line"></div>
+          <div class="ph-details"><p>Для тех, кто не выбрал специальность. Осознанный выбор на 2-м курсе — без потери времени.</p><span class="ph-link">Подробнее →</span></div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="eyebrow">Поступление</span><h2>Как поступить — 5 шагов</h2></div>
+    <div class="flight-stepper reveal">
+      <div class="flight-track-wrap">
+        <svg class="flight-track-svg"><path class="flight-path"></path><path class="flight-path-progress"></path></svg>
+        <div class="flight-plane"><svg viewBox="0 0 24 24" fill="none"><path d="M2 12 L19 7.5 L14.5 12 L19 16.5 Z" fill="#C4612A" stroke="#fff" stroke-width="1" stroke-linejoin="round"/><circle cx="20.5" cy="12" r="1.5" fill="#C4612A"/></svg></div>
+        <div class="flight-points">
+          <div class="flight-point"><div class="flight-dot">1</div><h4>Заявка</h4><div class="flight-point-details">Заполните форму на сайте.</div></div>
+          <div class="flight-point"><div class="flight-dot">2</div><h4>Собеседование</h4><div class="flight-point-details">Собеседование с приёмной комиссией.</div></div>
+          <div class="flight-point"><div class="flight-dot">3</div><h4>Документы</h4><div class="flight-point-details">Подайте необходимые документы.</div></div>
+          <div class="flight-point"><div class="flight-dot">4</div><h4>Оплата</h4><div class="flight-point-details">Оплатите обучение удобным способом.</div></div>
+          <div class="flight-point"><div class="flight-dot">5</div><h4>Зачисление</h4><div class="flight-point-details">Добро пожаловать в Первый Школледж!</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- РЯДОМ -->
+<section class="bg-grey">
+  <div class="wrap">
+    <div class="sec-head reveal center"><span class="eyebrow">Рядом с Школледжем</span><h2>Для приятного досуга после пар</h2><p>В шаговой доступности от комплекса — всё необходимое для приятного досуга после пар.</p></div>
+    <div class="loc-photo-grid reveal">
+      <figure><img src="assets/images/summer-railway.jpg" alt="Ж/д станция Балашиха"><figcaption>Ж/д станция Балашиха</figcaption></figure>
+      <figure><img src="assets/images/summer-cinema.jpg" alt="Кинотеатр «Прада 3Д»"><figcaption>Кинотеатр «Прада 3Д»</figcaption></figure>
+      <figure><img src="assets/images/summer-cafe1.jpg" alt="Кафе"><figcaption>Кафе рядом со школой</figcaption></figure>
+      <figure><img src="assets/images/summer-cafe2.jpg" alt="Кофейня"><figcaption>Уютная кофейня</figcaption></figure>
+      <figure><img src="assets/images/summer-greenhouse.jpg" alt="Ресторан-оранжерея"><figcaption>Ресторан-оранжерея</figcaption></figure>
+      <figure><img src="assets/images/summer-pizza.jpg" alt="Пиццерия"><figcaption>Пиццерия</figcaption></figure>
+      <figure><img src="assets/images/summer-ice.jpg" alt="Ледовый дворец"><figcaption>Ледовый дворец им. Ю. Лужкова</figcaption></figure>
+      <figure><img src="assets/images/summer-park.jpg" alt="Парк Пехорка"><figcaption>Парк Пехорка</figcaption></figure>
+      <figure><img src="assets/images/meteor-football.jpg" alt="Футбольный центр МЕТЕОР"><figcaption>Футбольный центр «МЕТЕОР»</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ОПЛАТА -->
+<section>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow v-dark">Оплата обучения</span>
+      <h2>Способы оплаты</h2>
+      <p>Оплатить обучение можно удобным для вас способом.</p>
+    </div>
+    <div class="payment-grid reveal">
+      <div class="payment-card pc-credit">
+        <div class="payment-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"></rect><circle cx="12" cy="12" r="2.5"></circle></svg></div>
+        <h4>Наличными</h4>
+        <p>Оплата наличными в кассе образовательного комплекса.</p>
+      </div>
+      <div class="payment-card pc-tax">
+        <div class="payment-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg></div>
+        <h4>Безналичными</h4>
+        <p>Оплата банковской картой удобным для вас способом.</p>
+      </div>
+      <div class="payment-card pc-matcap">
+        <div class="payment-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"></path><path d="M5 21V9l7-4 7 4v12"></path><path d="M9 21v-6h6v6"></path></svg></div>
+        <h4>Перевод на счёт</h4>
+        <p>Безналичный перевод по реквизитам на расчётный счёт организации.</p>
+      </div>
+    </div>
+    <div class="pay-period reveal">
+      <span class="pay-period-label">Периодичность оплаты:</span>
+      <span class="pay-period-chip">Оплата за год</span>
+      <span class="pay-period-chip">За семестр</span>
+      <span class="pay-period-chip">Ежемесячно</span>
+    </div>
+  </div>
+</section>
+
+
+<section class="bg-grey" id="apply">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="eyebrow">Контакты</span><h2>Оставить заявку</h2></div>
+    <div class="contact-grid reveal">
+      <div class="apply-card">
+        <div class="crow"><div><b>Телефоны</b><br><span>8/925/87-100-23</span><br><span>8/925/87-800-23</span></div></div>
+        <div class="crow"><div><b>Адрес</b><span>МО, г. Балашиха, ул. Советская, д. 23</span></div></div>
+        <div class="crow"><div><b>Режим ответа</b><span>10:00 – 17:00</span></div></div>
+        <form data-fake-submit>
+          <input class="field" type="text" placeholder="Ваше имя" required>
+          <input class="field" type="tel" placeholder="Телефон" required>
+          <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Оставить заявку</button>
+        </form>
+      </div>
+      <div class="map-box"><iframe src="https://yandex.ru/map-widget/v1/org/pervy_shkolledzh/154069779085/?ll=37.938496%2C55.805376&z=17" allowfullscreen title="Карта"></iframe></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-org-name">Образовательный Комплекс Непрерывного Обучения<br>«Первый Школледж»</div>
+    <div class="footer-grid">
+      <div>
+        <img src="assets/logo-white.png" alt="Первый Школледж" class="footer-logo">
+        <p style="font-size:13px; max-width:280px; line-height:1.5;">Образовательный комплекс полного цикла: школа, колледж, допобразование и ДПО.</p>
+        <div class="footer-social">
+          <a href="https://vk.com/club239462795" target="_blank" title="ВКонтакте">ВК</a>
+        </div>
+      </div>
+      <div>
+        <h5>Разделы</h5>
+        <ul>
+          <li><a href="index.html">Главная</a></li>
+          <li><a href="school.html">Школа</a></li>
+          <li><a href="college.html">Колледж</a></li>
+          <li><a href="extra.html">Допобразование</a></li>
+          <li><a href="dpo.html">ДПО</a></li>
+          <li><a href="summer-club.html">Летний клуб</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Контакты</h5>
+        <ul>
+          <li>8/925/87-100-23</li>
+          <li>8/925/87-800-23</li>
+          <li style="margin-top:4px;">МО,&nbsp;г.&nbsp;Балашиха,<br>ул.&nbsp;Советская,&nbsp;д.&nbsp;23</li>
+          <li style="margin-top:12px;"><a href="location.html">Как добраться</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Первый Школледж. Лицензия на образовательную деятельность.</span>
+      <a href="privacy.html">Политика конфиденциальности</a>
+    </div>
+  </div>
+</footer>
+<button class="consultant-fab"><span class="av">А</span><span>Оставьте свой вопрос</span></button>
+<script src="prices.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
